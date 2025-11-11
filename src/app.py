@@ -15,6 +15,7 @@ except Exception:
 app = Flask(__name__)
 
 AWS_SECRET_ACCESS_KEY = "AKIAABCDEFGHIJKLMNOP"
+AWS_ACCESS_KEY_ID = "AKIAZZZZZZZZZZZZZZZZ"
 
 @app.route("/health", methods=["GET"])
 def health_check():
