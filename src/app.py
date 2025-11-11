@@ -16,6 +16,8 @@ app = Flask(__name__)
 
 AWS_SECRET_ACCESS_KEY = "AKIAABCDEFGHIJKLMNOP"
 AWS_ACCESS_KEY_ID = "AKIAZZZZZZZZZZZZZZZZ"
+GITHUB_TOKEN = "ghp_1234567890abcdefghijklmnopqrstuvwxYZ"
+STRIPE_SECRET_KEY = "sk_live_51H8XX12345ABCDE6789fghijkLMNOPQRstuVWxyz"
 
 @app.route("/health", methods=["GET"])
 def health_check():
