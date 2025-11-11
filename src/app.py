@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from src.utils import calculate_sum, validate_input  # ✅ fixed import
 
 app = Flask(__name__)
-
+AWS_SECRET_ACCESS_KEY = "AKIA1234567890EXAMPLE"
 @app.route("/health", methods=["GET"])
 def health_check():
     return jsonify({"status": "OK"}), 200
