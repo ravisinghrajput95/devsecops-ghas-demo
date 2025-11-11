@@ -3,9 +3,9 @@ from src.app import app
 
 def test_health_check():
     client = app.test_client()
-    response = client.get("/health")
+    response = client.get("/ping")
     assert response.status_code == 200
-    assert response.get_json()["status"] == "OK"
+    assert response.data.decode() == "pong"
 
 def test_add_numbers_success():
     client = app.test_client()
