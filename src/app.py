@@ -1,19 +1,37 @@
-from flask import Flask, jsonify, request
-from src.utils import calculate_sum, validate_input  # ✅ fixed import
+import os
+import subprocess
+import flask
+from flask import Flask, request
 
 app = Flask(__name__)
-AWS_SECRET_ACCESS_KEY = "AKIA1234567890EXAMPLE"
-@app.route("/health", methods=["GET"])
-def health_check():
-    return jsonify({"status": "OK"}), 200
 
-@app.route("/add", methods=["POST"])
-def add_numbers():
-    data = request.get_json()
-    if not validate_input(data):
-        return jsonify({"error": "Invalid input"}), 400
-    total = calculate_sum(data["a"], data["b"])
-    return jsonify({"result": total}), 200
+# 🚨 1. Hardcoded secret (will trigger Secret Scanning)
+AWS_SECRET_KEY = "AKIA1234567890EXAMPLE"
+
+@app.route("/ping", methods=["GET"])
+def ping():
+    return "pong"
+
+# 🚨 2. Command injection vulnerability
+@app.route("/run", methods=["POST"])
+def run_command():
+    cmd = request.form.get("cmd")
+    # UNSAFE: direct use of user input in subprocess
+    result = subprocess.getoutput(cmd)
+    return result
+
+# 🚨 3. SQL Injection example
+import sqlite3
+@app.route("/user")
+def get_user():
+    username = request.args.get("name")
+    conn = sqlite3.connect("users.db")
+    cursor = conn.cursor()
+    query = f"SELECT * FROM users WHERE username = '{username}'"  # vulnerable
+    cursor.execute(query)
+    data = cursor.fetchall()
+    conn.close()
+    return {"users": data}
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(debug=True)
