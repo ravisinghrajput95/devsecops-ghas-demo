@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/" # location of requirements.txt
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/" # check for outdated Actions too
+    schedule:
+      interval: "weekly"

@@ -1,10 +1,5 @@
-"""
-A simple Flask API for demonstration of DevSecOps + GHAS integration.
-Includes endpoints for health checks and simple operations.
-"""
-
 from flask import Flask, jsonify, request
-from utils import calculate_sum, validate_input
+from src.utils import calculate_sum, validate_input  # ✅ fixed import
 
 app = Flask(__name__)
 
