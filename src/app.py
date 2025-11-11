@@ -14,8 +14,7 @@ except Exception:
 
 app = Flask(__name__)
 
-# 🚨 1. Hardcoded secret (will trigger Secret Scanning)
-AWS_SECRET_KEY = "AKIA1234567890EXAMPLE"
+AWS_SECRET_ACCESS_KEY = "AKIAABCDEFGHIJKLMNOP"
 
 @app.route("/health", methods=["GET"])
 def health_check():
@@ -39,7 +38,6 @@ def add_numbers():
     total = calculate_sum(data["a"], data["b"])
     return jsonify({"result": total}), 200
 
-# 🚨 2. Command injection vulnerability (intentional for demo)
 @app.route("/run", methods=["POST"])
 def run_command():
     """
@@ -52,7 +50,6 @@ def run_command():
     result = subprocess.getoutput(cmd)
     return result, 200
 
-# 🚨 3. SQL Injection example (intentional for demo)
 @app.route("/user", methods=["GET"])
 def get_user():
     """
